@@ -1,0 +1,35 @@
+name: ClangFormat check
+
+on:
+  push:
+    branches:
+      - stable
+      - beta
+      - canary
+    paths:
+      - '.github/workflows/clang-format.yml'
+      - 'kernel/**/*.c'
+      - 'kernel/**/*.h'
+  pull_request:
+    branches:
+      - stable
+      - beta
+      - canary
+    paths:
+      - '.github/workflows/clang-format.yml'
+      - 'kernel/**/*.c'
+      - 'kernel/**/*.h'
+      - 'kernel/.clang-format'
+
+permissions:
+  checks: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: check
+        working-directory: kernel
+        run: make check-format
