@@ -1,0 +1,8 @@
+.idea
+.vscode
+*.rej
+*.orig
+*.patch
+susfs4ksu
+Baseband-guard
+/.vs
