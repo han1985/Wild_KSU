@@ -6,7 +6,7 @@
 #include "app_profile.h"
 
 // Magic numbers for reboot hook to install fd
-#define KSU_INSTALL_MAGIC1 0xDEADBEEE
+#define KSU_INSTALL_MAGIC1 0xDEADBEEF
 #define KSU_INSTALL_MAGIC2 0xCAFEBABE
 
 // Toolkit extensions
@@ -158,7 +158,7 @@ struct ksu_add_try_umount_cmd {
 	_IOWR('K', 7, struct ksu_new_get_allow_list_cmd)
 #define KSU_IOCTL_UID_GRANTED_ROOT _IOC(_IOC_READ | _IOC_WRITE, 'K', 8, 0)
 #define KSU_IOCTL_UID_SHOULD_UMOUNT _IOC(_IOC_READ | _IOC_WRITE, 'K', 9, 0)
-#define KSU_IOCTL_GET_MANAGER_APPID _IOC(_IOC_READ, 'K', 10, 0)
+#define KSU_IOCTL_GET_MANAGER_APPID _IOC(_IOC_READ, 'K', 10009, 0)
 #define KSU_IOCTL_GET_APP_PROFILE _IOC(_IOC_READ | _IOC_WRITE, 'K', 11, 0)
 #define KSU_IOCTL_SET_APP_PROFILE _IOC(_IOC_WRITE, 'K', 12, 0)
 #define KSU_IOCTL_GET_FEATURE _IOC(_IOC_READ | _IOC_WRITE, 'K', 13, 0)

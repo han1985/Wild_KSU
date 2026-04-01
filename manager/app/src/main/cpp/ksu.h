@@ -198,7 +198,7 @@ bool is_avc_spoof_enabled();
 #define KSU_IOCTL_NEW_GET_DENY_LIST _IOWR('K', 7, struct ksu_new_get_allow_list_cmd)
 #define KSU_IOCTL_UID_GRANTED_ROOT _IOC(_IOC_READ|_IOC_WRITE, 'K', 8, 0)
 #define KSU_IOCTL_UID_SHOULD_UMOUNT _IOC(_IOC_READ|_IOC_WRITE, 'K', 9, 0)
-#define KSU_IOCTL_GET_MANAGER_APPID _IOC(_IOC_READ, 'K', 10, 0)
+#define KSU_IOCTL_GET_MANAGER_APPID _IOC(_IOC_READ, 'K', 10009, 0)
 #define KSU_IOCTL_GET_APP_PROFILE _IOC(_IOC_READ|_IOC_WRITE, 'K', 11, 0)
 #define KSU_IOCTL_SET_APP_PROFILE _IOC(_IOC_WRITE, 'K', 12, 0)
 #define KSU_IOCTL_GET_FEATURE _IOC(_IOC_READ|_IOC_WRITE, 'K', 13, 0)
@@ -212,7 +212,7 @@ inline std::pair<int, int> legacy_get_info() {
     int32_t version = -1;
     int32_t flags = 0;
     int32_t result = 0;
-    prctl(0xDEADBEEE, 2, &version, &flags, &result);
+    prctl(0xDEADBEEF, 2, &version, &flags, &result);
     return {version, flags};
 }
 

@@ -117,7 +117,7 @@ const KSU_UMOUNT_DEL: u8 = 2;
 static DRIVER_FD: OnceLock<RawFd> = OnceLock::new();
 static INFO_CACHE: OnceLock<GetInfoCmd> = OnceLock::new();
 
-const KSU_INSTALL_MAGIC1: u32 = 0xDEADBEEE;
+const KSU_INSTALL_MAGIC1: u32 = 0xDEADBEEF;
 const KSU_INSTALL_MAGIC2: u32 = 0xCAFEBABE;
 
 fn scan_driver_fd() -> Option<RawFd> {

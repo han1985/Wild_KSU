@@ -97,7 +97,7 @@ fn has_kernelsu_legacy() -> bool {
     unsafe {
         let _ = syscall!(
             Sysno::prctl,
-            0xDEADBEEE,
+            0xDEADBEEF,
             CMD_GET_VERSION,
             std::ptr::addr_of_mut!(version)
         );
@@ -110,7 +110,7 @@ fn has_kernelsu_legacy() -> bool {
 
 fn has_kernelsu_v2() -> bool {
     use syscalls::{Sysno, syscall};
-    const KSU_INSTALL_MAGIC1: u32 = 0xDEADBEEE;
+    const KSU_INSTALL_MAGIC1: u32 = 0xDEADBEEF;
     const KSU_INSTALL_MAGIC2: u32 = 0xCAFEBABE;
     const KSU_IOCTL_GET_INFO: u32 = 0x80004b02; // _IOC(_IOC_READ, 'K', 2, 0)
 
