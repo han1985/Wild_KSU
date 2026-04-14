@@ -82,7 +82,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -120,19 +120,19 @@ jobs:
           java-version: 21
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
 
       - name: Download arm64 ksud
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: ksud-aarch64-linux-android
           path: .
 
       - name: Download x86_64 ksud
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: ksud-x86_64-linux-android
           path: .
@@ -150,14 +150,14 @@ jobs:
           ./gradlew clean assembleRelease
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         if: ${{ ( github.event_name != 'pull_request' && (github.ref == 'refs/heads/stable' || github.ref == 'refs/heads/beta' || github.ref == 'refs/heads/canary' )) || github.ref_type == 'tag' }}
         with:
           name: ${{ matrix.spoofed == 'Spoofed' && 'manager-spoofed' || 'manager' }}
           path: manager/app/build/outputs/apk/release/*.apk
 
       - name: Upload mappings
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         if: ${{ ( github.event_name != 'pull_request' && (github.ref == 'refs/heads/stable' || github.ref == 'refs/heads/beta' || github.ref == 'refs/heads/canary' )) || github.ref_type == 'tag' }}
         with:
           name: ${{ matrix.spoofed == 'Spoofed' && 'mappings-spoofed' || 'mappings' }}
@@ -168,18 +168,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Download Normal Manager
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: manager
           path: manager
 
       - name: Download Spoofed Manager
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: manager-spoofed
           path: manager-spoofed
@@ -279,7 +279,7 @@ jobs:
 
       - name: Send Changelog to Channel
         if: (github.ref == 'refs/heads/stable' || github.ref == 'refs/heads/beta') && env.SHOULD_SEND_CHANGELOG == 'true'
-        uses: xireiki/channel-post@v1
+        uses: xireiki/channel-post@v2
         with:
           bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           chat_id: ${{ secrets.TELEGRAM_WILD_KSU_CI }}
@@ -289,7 +289,7 @@ jobs:
 
       - name: Post APKs to Channel
         if: github.ref == 'refs/heads/stable' || github.ref == 'refs/heads/beta'
-        uses: xireiki/channel-post@v1
+        uses: xireiki/channel-post@v2
         with:
           bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           chat_id: ${{ secrets.TELEGRAM_WILD_KSU_CI }}
@@ -300,7 +300,7 @@ jobs:
 
       - name: Send Changelog to DM
         if: env.SHOULD_SEND_CHANGELOG == 'true'
-        uses: xireiki/channel-post@v1
+        uses: xireiki/channel-post@v2
         with:
           bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           chat_id: ${{ secrets.TELEGRAM_USER_ID }}
@@ -309,7 +309,7 @@ jobs:
           method: sendMessage
 
       - name: Post APKs to DM
-        uses: xireiki/channel-post@v1
+        uses: xireiki/channel-post@v2
         with:
           bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           chat_id: ${{ secrets.TELEGRAM_USER_ID }}
@@ -357,7 +357,7 @@ jobs:
 
       - name: DM Failure Notification
         if: always() && needs.build-manager.result == 'failure'
-        uses: xireiki/channel-post@v1
+        uses: xireiki/channel-post@v2
         with:
           bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           chat_id: ${{ secrets.TELEGRAM_USER_ID }}
